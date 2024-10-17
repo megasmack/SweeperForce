@@ -11,12 +11,13 @@
 }
 
 :host {
-    --sms-font-size: clamp(0.75rem, 60cqw, 4rem);
+    --sms-font-size: clamp(0.75rem, 60cqw, 3.5rem);
     --sms-grid-col: 8;
     --sms-grid-row: 8;
     --sms-radiate: 0;
     --sms-wave: 0s;
     --sms-radiate-color: #00bfff;
+    --sms-background-color: #a6a6a6;
     --sms-border-color: #999;
     --sms-cell-color: #ccc;
     --sms-water-color: #96dafe;
@@ -40,11 +41,14 @@
 }
 
 .sms {
-    background-color: #a6a6a6;
+    background-color: var(--sms-background-color);
     border: 2px solid var(--sms-border-color);
     border-radius: 0.25rem;
     font-family: 'silkscreennormal', 'monospace';
     margin-block-end: 1rem;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
 }
 
 .sms-grid {
@@ -127,7 +131,8 @@
     border: 1px solid;
     display: flex;
     justify-content: center;
-    user-select: text;
+    -webkit-user-select: none;
+    user-select: none;
 }
 
 .sms-cell_top {

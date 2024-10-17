@@ -479,10 +479,17 @@ export default class SmsSweeperForce extends LightningElement {
     }
   }
 
-  selectOrFlagCell(id, flag) {
-    const thisId = parseInt(id, 10);
+  /**
+   * Expose, Flag, or Question a cell.
+   * @param {string} id
+   * @param {boolean} flag
+   */
+  exposeOrFlagCell(id, flag) {
+    const thisId = parseInt(id, 10); // Convert string to number
     const index = this.grid.findIndex((c) => c.id === thisId);
     const isFirstClick = !this.grid.some((c) => c?.firstSelected);
+    const isFlagged = this.flagged.includes(thisId);
+    const isQuestioned = this.questioned.includes(thisId);
 
     if (this.isGameOver || this.exposed.includes(thisId)) {
       // Do nothing when the game is over or cell was exposed.
@@ -502,11 +509,11 @@ export default class SmsSweeperForce extends LightningElement {
       this.refs.menu.startTimer();
     }
 
-    if (flag) {
-      // --- Flag Cell
+    // Check if you are flagging the cell or if the cell is already flagged or questioned.
+    // If not, expose the cell.
+    if (flag || isFlagged || isQuestioned) {
       this.flagCell(thisId);
     } else {
-      // --- Expose Cell
       this.exposeFromSelected(index);
     }
 
@@ -545,12 +552,12 @@ export default class SmsSweeperForce extends LightningElement {
 
     if (isRightMouseClick || (isKeyClick && event.shiftKey)) {
       // Flag if right click or space or enter key pressed.
-      this.selectOrFlagCell(id, true);
+      this.exposeOrFlagCell(id, true);
     } else {
       // Flag if long press
       // eslint-disable-next-line @lwc/lwc/no-async-operation
       this.mouseTimer = setTimeout(() => {
-        this.selectOrFlagCell(id, true);
+        this.exposeOrFlagCell(id, true);
         clearTimeout(this.mouseTimer);
         this.mouseTimer = null;
       }, 1000);
@@ -563,16 +570,8 @@ export default class SmsSweeperForce extends LightningElement {
     if (this.mouseTimer) {
       clearTimeout(this.mouseTimer);
       this.mouseTimer = null;
-      this.selectOrFlagCell(id, false);
+      this.exposeOrFlagCell(id, false);
     }
-  }
-
-  handleCellTouchStart(event) {
-    this.handleCellStart(event);
-  }
-
-  handleCellTouchEnd(event) {
-    this.handleCellEnd(event);
   }
 
   handleSettings() {
