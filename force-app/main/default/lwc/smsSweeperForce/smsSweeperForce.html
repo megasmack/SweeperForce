@@ -1,0 +1,134 @@
+<!--
+ - Created by Steve M Schrab
+ - https://github.com/megasmack/SweeperForce
+ -->
+<template>
+  <aside class="slds-card">
+    <div class="slds-card__header slds-grid">
+      <header class="slds-media slds-media_center slds-has-flexi-truncate">
+        <div class="slds-media__figure">
+          <div class="slds-icon-standard-nft-settings slds-icon_container">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="slds-icon">
+              <use href="#bomb" />
+            </svg>
+          </div>
+        </div>
+        <div class="slds-media__body">
+          <h2 class="slds-card__header-title">
+            SweeperForce
+          </h2>
+        </div>
+        <nav class="slds-no-flex" aria-label="Game Options">
+          <lightning-button-icon icon-name="utility:settings" alternative-text="Settings" title="Settings"
+            onclick={handleSettings} class="slds-m-right_x-small"></lightning-button-icon>
+          <lightning-button-icon icon-name="utility:refresh" alternative-text="Restart" title="Restart"
+            onclick={handleRestart}></lightning-button-icon>
+        </nav>
+      </header>
+    </div>
+
+    <div class="slds-card__body slds-card__body_inner">
+
+      <div class="sms">
+        <c-sms-sweeper-force-menu-bar
+          lwc:ref="menu"
+          flagged-mines={minesToFlag}
+          game-in-progress={isGameInProgress}
+          onpause={handlePause}
+          onplay={handlePlay}>
+        </c-sms-sweeper-force-menu-bar>
+
+        <div lwc:ref="smsGrid" class="sms-grid">
+          <div class="sms-grid_top-layer"
+            ondrag={handleDisableEvent}>
+            <template for:each={gridData} for:item="cell">
+              <button
+                key={cell.key}
+                data-id={cell.id}
+                class={cell.classes}
+                style={cell.styles}
+                type="button"
+                aria-label={cell.ariaLabel}
+                onkeydown={handleCellStart}
+                onmousedown={handleCellStart}
+                ontouchstart={handleCellTouchStart}
+                onmouseup={handleCellEnd}
+                onkeyup={handleCellEnd}
+                ontouchend={handleCellTouchEnd}
+                oncontextmenu={handleDisableEvent}
+                onselect={handleDisableEvent}>
+
+                <template lwc:if={isDevMode}>
+                  <template lwc:if={cell.mine}>
+                    M
+                  </template>
+                  <template lwc:else>
+                    {cell.adjacent}
+                  </template>
+                </template>
+
+                <template lwc:if={cell.flagged}>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="sms-flag">
+                    <use href="#flag" />
+                  </svg>
+                </template>
+                <template lwc:if={cell.questioned}>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="sms-question">
+                    <use href="#question" />
+                  </svg>
+                </template>
+
+                <template lwc:if={isGameOver}>
+                  <template lwc:if={cell.mine}>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="sms-bomb">
+                      <use href="#bomb" />
+                    </svg>
+                  </template>
+                </template>
+
+              </button>
+            </template>
+          </div>
+          <div class="sms-grid_bottom-layer">
+            <template for:each={gridData} for:item="cell">
+              <div key={cell.key}>
+                <div
+                  lwc:if={cell.exposed}
+                  class="sms-cell_bottom exposed"
+                  data-adjacent={cell.adjacent}
+                  style={cell.belowStyles}>
+                </div>
+                <div
+                  lwc:else
+                  class="sms-cell_bottom"
+                  style={cell.belowStyles}>
+                </div>
+              </div>
+            </template>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+    <svg viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg">
+      <symbol id="flag">
+        <path
+          d="m64 32c0-17.7-14.3-32-32-32s-32 14.3-32 32v32 304 112c0 17.7 14.3 32 32 32s32-14.3 32-32v-128l64.3-16.1c41.1-10.3 84.6-5.5 122.5 13.4 44.2 22.1 95.5 24.8 141.7 7.4l34.7-13c12.5-4.7 20.8-16.6 20.8-30v-247.7c0-23-24.2-38-44.8-27.7l-9.6 4.8c-46.3 23.2-100.8 23.2-147.1 0-35.1-17.6-75.4-22-113.5-12.5l-69 17.4z" />
+      </symbol>
+    </svg>
+    <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+      <symbol id="bomb">
+        <path
+          d="m459.1 52.4-16.5-45.9c-1.9-3.9-6.1-6.5-10.5-6.5s-8.5 2.6-10.4 6.5l-16.5 45.9-46 16.8c-4.3 1.6-7.3 5.9-7.2 10.4 0 4.5 3 8.7 7.2 10.2l45.7 16.8 16.8 45.8c1.5 4.4 5.8 7.5 10.4 7.5s8.9-3.1 10.4-7.5l16.5-45.8 45.7-16.8c4.2-1.5 7.2-5.7 7.2-10.2 0-4.6-3-8.9-7.2-10.4zm-132.4 53c-12.5-12.5-32.8-12.5-45.3 0l-2.9 2.9c-22-8-45.8-12.3-70.5-12.3-114.9 0-208 93.1-208 208s93.1 208 208 208 208-93.1 208-208c0-24.7-4.3-48.5-12.2-70.5l2.9-2.9c12.5-12.5 12.5-32.8 0-45.3l-80-80zm-126.7 86.6c-57.4 0-104 46.6-104 104v8c0 8.8-7.2 16-16 16s-16-7.2-16-16v-8c0-75.1 60.9-136 136-136h8c8.8 0 16 7.2 16 16s-7.2 16-16 16z" />
+      </symbol>
+    </svg>
+    <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+      <symbol id="question">
+        <path
+          d="m256 512a256 256 0 1 0 0-512 256 256 0 1 0 0 512zm-86.2-346.7c7.9-22.3 29.1-37.3 52.8-37.3h58.3c34.9 0 63.1 28.3 63.1 63.1 0 22.6-12.1 43.5-31.7 54.8l-32.3 18.5c-.2 13-10.9 23.6-24 23.6-13.3 0-24-10.7-24-24v-13.5c0-8.6 4.6-16.5 12.1-20.8l44.3-25.4c4.7-2.7 7.6-7.7 7.6-13.1 0-8.4-6.8-15.1-15.1-15.1h-58.3c-3.4 0-6.4 2.1-7.5 5.3l-.4 1.2c-4.4 12.5-18.2 19-30.6 14.6s-19-18.2-14.6-30.6l.4-1.2zm54.2 186.7a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z" />
+      </symbol>
+    </svg>
+  </aside>
+</template>

@@ -1,0 +1,94 @@
+<template>
+    <lightning-modal-header label="Settings"></lightning-modal-header>
+    <lightning-modal-body>
+        <div class="slds-grid slds-wrap slds-gutters">
+            <div class="slds-col slds-size_1-of-1 slds-medium-size_5-of-12 slds-large-size_4-of-12 slds-medium-order_2">
+                <h2 class="slds-m-bottom_small slds-text-heading_medium">
+                    Game Settings
+                </h2>
+                <div class="slds-m-bottom_small">
+                    <lightning-select
+                        label="Difficulty"
+                        name="difficulty"
+                        options={options}
+                        value={_difficulty}
+                        onchange={handleDifficulty}>
+                    </lightning-select>
+                </div>
+                <div class="slds-grid slds-grid_align-spread slds-grid_vertical-align-center">
+                    <div class="slds-form-element__label">
+                        Enable Sound FX
+                    </div>
+                    <lightning-button-icon-stateful
+                        icon-name={soundIcon}
+                        selected={_soundFx}
+                        onclick={handleSoundFx}>
+                    </lightning-button-icon-stateful>
+                </div>
+                <lightning-slider
+                    lwc:if={_soundFx}
+                    label="Volume"
+                    value={_volume}
+                    onchange={handleVolume}>
+                </lightning-slider>
+            </div>
+
+            <div
+                class="slds-col slds-size_1-of-1 slds-medium-size_7-of-12 slds-large-size_8-of-12 slds-medium-order_1 slds-text-body_small">
+                <h2 class="slds-m-bottom_small slds-text-heading_medium">
+                    How to Play
+                </h2>
+                <p class="slds-m-bottom_small">
+                    <b>Clear the mines!</b> Expose squares one at a time by clicking on them.
+                    If the square is clear, you'll get to see how many of its neighbors have mines in them (0 through
+                    8); but if the square has a mine in it, all the mines will explode.
+                </p>
+                <p class="slds-m-bottom_small">
+                    Right-click on a square to flag it as a suspected mine. Do it again to
+                    mark it as questionable, and again to clear the mark. When you've exposed all the vacant squares,
+                    you win. If a mine explodes, you lose. Click on the face to start a new game.
+                </p>
+                <p class="slds-m-bottom_small">
+                    The left-hand counter shows the number of mines less the number of
+                    squares that you've flagged (correctly or not).
+                </p>
+
+                <h2 class="slds-m-top_medium slds-text-heading_medium">
+                    About
+                </h2>
+                <div class="profile">
+                    <img src={profileImage} alt="" class="profile-img" role="presentation" />
+                    <div class="profile-content">
+                        <p class="slds-m-bottom_xx-small slds-text-heading_small">
+                            Lovingly crafted by Steve Schrab.
+                        </p>
+                        <p class="slds-m-bottom_x-small slds-text-body_small">
+                            See a problem? Help out by <a href="https://github.com/megasmack/SweeperForce/issues"
+                                target="_blank">logging a bug on <span>GitHub <lightning-icon icon-name="utility:new_window"
+                                    size="xx-small" class="slds-current-color"></lightning-icon></span></a>.
+                        </p>
+                        <p class="slds-m-bottom_xxx-small slds-text-body_small">
+                            <a href="https://github.com/megasmack/SweeperForce" target="_blank">
+                                <span>
+                                    GitHub Repo
+                                    <lightning-icon icon-name="utility:new_window" size="xx-small" class="slds-current-color"></lightning-icon>
+                                </span>
+                            </a>
+                        </p>
+                        <p class="slds-text-color_weak slds-text-body_small">
+                            Version: 1.0.0
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </lightning-modal-body>
+    <lightning-modal-footer>
+        <button type="button" class="slds-button slds-button_neutral" onclick={handleCancel}>
+            Cancel
+        </button>
+        <button type="button" class="slds-button slds-button_brand" onclick={handleSave}>
+            Save
+        </button>
+    </lightning-modal-footer>
+</template>

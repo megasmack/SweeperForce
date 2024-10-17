@@ -1,0 +1,404 @@
+/**
+ * Created by Steve M Schrab
+ * https://github.com/megasmack/SweeperForce
+ */
+
+@font-face {
+    font-family: 'silkscreennormal';
+    src: url(data:application/font-woff2;charset=utf-8;base64,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) format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+:host {
+    --sms-font-size: clamp(0.75rem, 60cqw, 4rem);
+    --sms-grid-col: 8;
+    --sms-grid-row: 8;
+    --sms-radiate: 0;
+    --sms-wave: 0s;
+    --sms-radiate-color: #00bfff;
+    --sms-border-color: #999;
+    --sms-cell-color: #ccc;
+    --sms-water-color: #96dafe;
+    --sms-water-color-2: #c2ebff;
+    --sms-water-border-color: var(--sms-radiate-color);
+    --slds-c-icon-color-background: #00bfff;
+    --sms-black: #000;
+    --sms-red: #f66;
+    --sms-dark-red: #803333;
+    --sms-adjacent-color-0: #000;
+    --sms-adjacent-color-1: #000;
+    --sms-adjacent-color-2: #8f1c1c;
+    --sms-adjacent-color-3: #c82828;
+    --sms-adjacent-color-4: #ff3333;
+    --sms-adjacent-color-5: #ff0f0f;
+    --sms-adjacent-color-6: #ff0f0f;
+    --sms-adjacent-color-7: #ff0f0f;
+    --sms-adjacent-color-8: #ff0000;
+    --sms-z-index-board: 10;
+    display: block;
+}
+
+.sms {
+    background-color: #a6a6a6;
+    border: 2px solid var(--sms-border-color);
+    border-radius: 0.25rem;
+    font-family: 'silkscreennormal', 'monospace';
+    margin-block-end: 1rem;
+}
+
+.sms-grid {
+    position: relative;
+    overflow: hidden;
+}
+
+.sms-winner,
+.sms-lost {
+    overflow: visible;
+}
+
+.sms-winner::after,
+.sms-lost::after,
+.sms-paused::before,
+.sms-paused::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    white-space: nowrap;
+    z-index: calc(var(--sms-z-index-board) + 10);
+}
+
+.sms-paused::before {
+    background-color:var(--sms-cell-color);
+    box-shadow: inset 0 0 8cqw 2cqw color(from var(--sms-border-color) srgb r g b / 0.5);
+}
+
+.sms-winner::after,
+.sms-lost::after,
+.sms-paused::after {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--sms-font-size);
+}
+.sms-paused::after {
+    content: 'Paused';
+}
+
+.sms-winner::after {
+    content: 'You Win!';
+    text-shadow: 1px 2px 4px var(--sms-black);
+    color: var(--sms-red);
+}
+
+.sms-lost::after {
+    content: 'Game Over';
+    text-shadow: 1px 2px 4px var(--sms-black);
+    color: var(--sms-red);
+}
+
+.sms-grid_top-layer,
+.sms-grid_bottom-layer {
+    display: grid;
+    grid-template-columns: repeat(var(--sms-grid-col), 1fr);
+    color: #000000;
+    user-select: none;
+}
+
+.sms-grid_top-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: var(--sms-z-index-board);
+    filter: drop-shadow(2px 2px 3px rgba(0, 0, 0, 0.75));
+}
+
+.sms-grid_bottom-layer {
+    background-color: var(--sms-water-color);
+}
+.sms-cell_top,
+.sms-cell_bottom {
+    align-items: center;
+    aspect-ratio: 1 / 1;
+    border: 1px solid;
+    display: flex;
+    justify-content: center;
+    user-select: text;
+}
+
+.sms-cell_top {
+    --sms-radiate-delay: calc(var(--sms-radiate) * 50ms);
+    --sms-cell-z-index: 0;
+    animation-delay: var(--sms-radiate-delay);
+    animation-fill-mode: forwards;
+    animation-iteration-count: 1;
+    animation-timing-function: cubic-bezier(.76, .55, .84, 1.29);
+    background: var(--sms-cell-color);
+    border-color: var(--sms-border-color);
+    margin: 0;
+    padding: 0;
+    position: relative;
+    transform: scale(1);
+    z-index: var(--sms-cell-z-index);
+}
+
+.sms-cell_top.exposed {
+    animation-duration: 800ms !important;
+    animation-name: drop !important;
+    animation-timing-function: cubic-bezier(.38,-0.57,.4,.55) !important;
+}
+
+.sms-grid.selected .sms-cell_top {
+    animation-name: radiate;
+    animation-duration: 250ms;
+    animation-timing-function: ease-out;
+}
+
+.sms-grid.sms-lost .sms-cell_top {
+    animation-name: explode;
+    animation-duration: 350ms;
+}
+
+.sms-grid.sms-winner .sms-cell_top {
+    animation-name: radiateWin !important;
+    animation-duration: 2000ms;
+    animation-timing-function: ease-out;
+    animation-iteration-count: infinite;
+}
+
+.sms-grid.reset .sms-cell_top {
+    --sms-radiate-delay: calc(var(--sms-radiate) * 30ms);
+    animation-name: reset;
+    animation-duration: 350ms;
+}
+
+.sms-cell_bottom {
+    --sms-adjacent-color: var(--sms-adjacent-color-1);
+    animation-name: wave;
+    animation-delay: calc(var(--sms-wave) * 500ms);
+    animation-direction: alternate;
+    animation-duration: 3000ms;
+    animation-fill-mode: both;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+    border-color: var(--sms-water-border-color);
+    color: var(--sms-adjacent-color);
+    container-type: inline-size;
+}
+
+.sms-cell_bottom.exposed::before {
+    content: attr(data-adjacent);
+    font-size: var(--sms-font-size);
+    font-weight: 700;
+}
+
+.sms-bomb,
+.sms-flag,
+.sms-question {
+    display: block;
+    width: 40%;
+}
+
+.sms-bomb {
+    fill: var(--sms-red);
+}
+
+.sms-flag,
+.sms-question {
+    fill: #fff;
+    animation-duration: 350ms;
+    animation-fill-mode: forwards;
+    animation-iteration-count: 1;
+    animation-timing-function: cubic-bezier(.76, .55, .84, 1.29);
+    position: absolute;
+}
+
+.sms-flag {
+    transform-origin: 5% 100%;
+    animation-name: flag;
+}
+.sms-question {
+    animation-name: question;
+}
+
+.sms-grid.sms-winner .sms-flag {
+    animation-name: flag-win;
+    animation-direction: alternate;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+}
+
+svg {
+    display: none;
+}
+
+.slds-icon {
+    display: block;
+    padding: 0.25rem;
+}
+
+@keyframes wave {
+    0% {
+        background-color: var(--sms-water-color);
+    }
+    100% {
+        background-color: var(--sms-water-color-2);
+    }
+}
+
+@keyframes radiateWin {
+    0% {
+        background-color: var(--sms-water-color);
+        transform: scale(1);
+    }
+    5% {
+        background-color: #ADFF2F;
+        transform: scale(1.5);
+    }
+    50% {
+        background-color: var(--sms-cell-color);
+        transform: scale(1);
+    }
+    55% {
+        background-color: #ADFF2F;
+        transform: scale(1.5);
+    }
+    100% {
+        background-color: var(--sms-water-color);
+        transform: scale(1);
+    }
+}
+
+@keyframes radiate {
+    0% {
+        border-color: var(--sms-border-color);
+    }
+    10% {
+        border-color: var(--sms-radiate-color);
+    }
+    100% {
+        border-color: var(--sms-border-color);
+    }
+}
+
+@keyframes explode {
+    0% {
+        border-color: var(--sms-border-color);
+        transform: scale(1);
+    }
+    10% {
+        border-color: var(--sms-dark-red);
+        background-color: var(--sms-red);
+        transform: scale(1.5);
+        opacity: 1 !important;
+    }
+    100% {
+        border-color: #454545;
+        background-color: #000;
+        transform: scale(1);
+        opacity: 1 !important;
+    }
+}
+
+@keyframes reset {
+    0% {
+        background-color: #000;
+        border-color: #454545;
+        transform: scale(1);
+    }
+    10% {
+        transform: scale(1.5);
+    }
+    100% {
+        background-color: var(--sms-cell-color);
+        border-color: var(--sms-border-color);
+        transform: scale(1);
+    }
+}
+
+@keyframes drop {
+    0% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    70% {
+        opacity: 0;
+    }
+    100% {
+        transform: scale(0);
+        opacity: 0;
+    }
+}
+
+@keyframes question {
+    0% {
+        opacity: 0;
+        transform: scale(0);
+    }
+    70% {
+        opacity: 1;
+        transform: scale(1.25);
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes flag {
+    0% {
+        transform: rotate(-10deg);
+    }
+    20% {
+        transform: rotate(10deg);
+    }
+    30% {
+        transform: rotate(-8deg);
+    }
+    40% {
+        transform: rotate(8deg);
+    }
+    50% {
+        transform: rotate(-4deg);
+    }
+    60% {
+        transform: rotate(4deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+@keyframes flag-win {
+    0% {
+        transform: rotate(-15deg);
+    }
+    100% {
+        transform: rotate(10deg);
+    }
+}
+
+@media (any-hover: hover) {
+    .sms-cell_top:hover {
+        --sms-cell-z-index: 1 !important;
+        border-color: var(--sms-water-border-color);
+        box-shadow:
+                0 0 50px color(from var(--sms-water-border-color) srgb r g b / 0.5),
+                inset 0 0 50px color(from var(--sms-water-border-color) srgb r g b / 0.25);
+    }
+}
+
+@media (prefers-reduced-motion) {
+    .sms-cell_top,
+    .sms-cell_top.exposed,
+    .sms-cell_bottom,
+    .sms-bomb,
+    .sms-flag,
+    .sms-question  {
+        animation: none !important;
+    }
+}

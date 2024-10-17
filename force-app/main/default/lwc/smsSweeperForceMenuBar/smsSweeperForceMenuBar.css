@@ -1,0 +1,59 @@
+:host {
+    ---sms-counter-background-color: var(--sms-black);
+    ---sms-counter-border-color: var(--sms-cell-color);
+    ---sms-counter-font-color: var(--sms-red);
+}
+
+.sms-menu-bar {
+    align-items: center;
+    display: flex;
+    font-family: 'silkscreennormal', 'monospace';
+    justify-content: space-between;
+}
+
+.sms-counter-container {
+    align-items: center;
+    display: flex;
+    gap: 0.25rem;
+}
+
+.sms-counter {
+    align-items: center;
+    margin: 10px;
+    border: 1px inset var(---sms-counter-border-color);
+    border-radius: 0.25rem;
+    display: flex;
+    gap: 0.25rem;
+    justify-content: end;
+    padding: 0.25em;
+    min-width: 3em;
+    min-height: 1.5em;
+    background-color: var(---sms-counter-background-color);
+    color: var(---sms-counter-font-color);
+    font-size: 1.25rem;
+    font-weight: 500;
+    line-height: 1;
+    text-align: right;
+}
+
+.sms-counter c-sms-clock-icon {
+    --sms-clock_line-width: 0.45rem;
+    --sms-clock_size: 1rem;
+    display: block;
+}
+.sms-counter .sms-flag-counter,
+.sms-play-pause-button > svg {
+    display: block;
+    fill: currentColor;
+    width: 1rem;
+}
+
+.sms-play-pause-button {
+    border: 0;
+    padding: 0;
+    background: transparent;
+}
+
+.sms-play-pause-button:hover {
+    color: var(---sms-counter-font-color);
+}

@@ -1,0 +1,27 @@
+.profile {
+    align-items: center;
+    display: flex;
+    gap: 0.75rem;
+}
+
+.profile a > span {
+    display: inline-flex;
+    gap: 0.25em;
+}
+
+.profile-img {
+    border: 0.25rem solid var(--slds-g-color-border-base-2, gray);
+    border-radius: 5rem;
+    display: block;
+    margin-inline-start: -0.5rem;
+    height: 5rem;
+    width: 5rem;
+}
+
+.profile-content {
+    flex: 1;
+}
+
+h2 {
+    font-weight: 500;
+}
