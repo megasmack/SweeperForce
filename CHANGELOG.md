@@ -7,6 +7,7 @@
 
 ### Fixed
 - Fixed buggy touch controls.
+- Fixed bug where outdated localStorage variables could cause a crash.
 
 ## v1.0.0
 

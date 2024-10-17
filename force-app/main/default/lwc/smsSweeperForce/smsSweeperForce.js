@@ -79,17 +79,17 @@ export default class SmsSweeperForce extends LightningElement {
   applySettings(jsonString) {
     localStorage.setItem("sms-sweeper-force-settings", jsonString);
     const settings = JSON.parse(jsonString);
-    this.useSfx = settings.soundFx;
-    this.volume = settings.volume;
+    this.useSfx = settings?.soundFx || this.useSfx;
+    this.volume = settings?.volume || this.volume;
     if (this.useSfx) {
       this.enableAudio();
     }
 
-    if (this.difficulty !== settings.difficulty) {
-      this.difficulty = settings.difficulty;
-      this.width = settings.width;
-      this.height = settings.height;
-      this.mines = settings.mines;
+    if (this.difficulty !== settings?.difficulty) {
+      this.difficulty = settings?.difficulty;
+      this.width = settings?.width || this.width;
+      this.height = settings?.height || this.height;
+      this.mines = settings?.mines || this.mines;
       this.resetGame();
     }
   }
