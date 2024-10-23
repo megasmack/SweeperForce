@@ -1,5 +1,15 @@
 # SMS - SweeperForce Changelog
 
+## v1.0.2
+
+### Added
+ - Added animated shake to lost game explosion (#2)
+
+### Fixed
+ - Fixed play/pause button not toggling (#1)
+ - Fixed clock not animating (#1)
+ - Fixed pause screen not going away when resetting game.
+
 ## v1.0.1
 
 ### Added
