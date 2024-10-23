@@ -3,9 +3,7 @@
  * https://github.com/megasmack/SweeperForce
  */
 
-/**
- * @typedef {import("./typedefs").ForceCell} ForceCell
- */
+/** @typedef {import("./typedefs").ForceCell} ForceCell */
 
 import { LightningElement } from "lwc";
 import SmsSweeperForceModal from "c/smsSweeperForceModal";
@@ -142,11 +140,12 @@ export default class SmsSweeperForce extends LightningElement {
       const timeout = this.height * 100;
       this.refs.smsGrid.classList.remove("sms-winner");
       this.refs.smsGrid.classList.remove("sms-lost");
-      this.refs.smsGrid.classList.add("reset");
+      this.refs.smsGrid.classList.remove("sms-paused");
+      this.refs.smsGrid.classList.add("sms-reset");
       // eslint-disable-next-line @lwc/lwc/no-async-operation
       setTimeout(() => {
         // Remove on animation finish
-        this.refs.smsGrid.classList.remove("reset");
+        this.refs.smsGrid.classList.remove("sms-reset");
       }, timeout);
     }
   }

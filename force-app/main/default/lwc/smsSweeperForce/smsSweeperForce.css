@@ -61,6 +61,10 @@
     overflow: visible;
 }
 
+.sms-lost{
+    animation: shake 0.15s 5;
+}
+
 .sms-winner::after,
 .sms-lost::after,
 .sms-paused::before,
@@ -175,7 +179,7 @@
     animation-iteration-count: infinite;
 }
 
-.sms-grid.reset .sms-cell_top {
+.sms-grid.sms-reset .sms-cell_top {
     --sms-radiate-delay: calc(var(--sms-radiate) * 30ms);
     animation-name: reset;
     animation-duration: 350ms;
@@ -288,6 +292,14 @@ svg {
     100% {
         border-color: var(--sms-border-color);
     }
+}
+
+@keyframes shake {
+    0% { transform: translateX(0) }
+    25% { transform: translateX(0.25rem) }
+    50% { transform: translateX(-0.25rem) }
+    75% { transform: translateX(0.25rem) }
+    100% { transform: translateX(0) }
 }
 
 @keyframes explode {
