@@ -1,27 +1,38 @@
 # SMS - SweeperForce Changelog
 
+## v1.0.3
+
+### Added
+
+- Random audio pitch change on some sound effects to relieve user audio fatigue.
+
 ## v1.0.2
 
 ### Added
- - Added animated shake to lost game explosion (#2)
+
+- Added animated shake to lost game explosion (#2)
 
 ### Fixed
- - Fixed play/pause button not toggling (#1)
- - Fixed clock not animating (#1)
- - Fixed pause screen not going away when resetting game.
+
+- Fixed play/pause button not toggling (#1)
+- Fixed clock not animating (#1)
+- Fixed pause screen not going away when resetting game.
 
 ## v1.0.1
 
 ### Added
+
 - VS Code spell checker extension recommendation and spell checking settings.
 
 ### Fixed
+
 - Fixed buggy touch controls.
 - Fixed bug where outdated localStorage variables could cause a crash.
 
 ## v1.0.0
 
 ### Added
+
 - Started Changelog file.
 
 ## Notes

@@ -10,7 +10,6 @@ import SmsSweeperForceModal from "c/smsSweeperForceModal";
 import SmsAssets from "@salesforce/resourceUrl/smsSweeperForce";
 
 export default class SmsSweeperForce extends LightningElement {
-
   // --- Private Properties ---
 
   isInit = false;
@@ -103,11 +102,11 @@ export default class SmsSweeperForce extends LightningElement {
     this.grid = grid.map((_, i) => {
       const id = i + 1;
       const key = `cell-${id}`;
-      let x = (id) % this.width;
+      let x = id % this.width;
       // End of Row
-      x = (x === 0) ? this.width : x;
+      x = x === 0 ? this.width : x;
       // New Row
-      y = (x === 1) ? y + 1 : y;
+      y = x === 1 ? y + 1 : y;
       return {
         id,
         key,
@@ -118,7 +117,7 @@ export default class SmsSweeperForce extends LightningElement {
         mine: false,
         wave: x + y,
         firstSelected: false,
-        flagged: false,
+        flagged: false
       };
     });
     this.gridData = this.updateGridData();
@@ -173,7 +172,11 @@ export default class SmsSweeperForce extends LightningElement {
     while (laid < this.mines) {
       const index = Math.floor(Math.random() * this.total);
       // Check if cell is a mine already and don"t set a mine on the player"s first clicked cell.
-      if (index < this.total && !this.grid[index]?.mine && !this.grid[index]?.firstSelected) {
+      if (
+        index < this.total &&
+        !this.grid[index]?.mine &&
+        !this.grid[index]?.firstSelected
+      ) {
         this.grid[index].mine = true;
         laid += 1;
         this.applyToAdjacentCells(index, setAdjacentNumbers);
@@ -188,16 +191,16 @@ export default class SmsSweeperForce extends LightningElement {
   updateGridData() {
     this.minesToFlag = this.mines - this.flagged?.length;
     return this.grid.map((cell, i) => {
-      const distance = this.currentSelected != null
-        ? this.distanceFromSelected(cell, this.grid[this.currentSelected])
-        : 0;
+      const distance =
+        this.currentSelected != null
+          ? this.distanceFromSelected(cell, this.grid[this.currentSelected])
+          : 0;
       const isExposed = this.exposed.includes(cell.id) && !this.isWin;
       const isFlagged = this.flagged.includes(cell.id);
       const isQuestioned = this.questioned.includes(cell.id);
       const isAdjacent = cell.adjacent > 0;
-      const zIndex = this.currentSelected === i
-        ? this.width
-        : this.width - distance;
+      const zIndex =
+        this.currentSelected === i ? this.width : this.width - distance;
       return {
         ...cell,
         adjacent: isAdjacent ? cell.adjacent : "",
@@ -300,6 +303,7 @@ export default class SmsSweeperForce extends LightningElement {
       if (this.useSfx) {
         const sfxPing = new Audio(this.sfxPingPath);
         sfxPing.volume = this.sfxVolume;
+        sfxPing.playbackRate = this.pitchValue();
         sfxPing.play();
       }
     } else {
@@ -367,6 +371,7 @@ export default class SmsSweeperForce extends LightningElement {
 
       if (this.useSfx && tempExposed.length > 4) {
         this.sfxSplash.volume = this.sfxVolume;
+        this.sfxSplash.playbackRate = this.pitchValue();
         this.sfxSplash.play();
       }
     }
@@ -427,6 +432,7 @@ export default class SmsSweeperForce extends LightningElement {
       this.flagged.splice(i, 1);
       this.questioned.push(id);
       if (this.useSfx) {
+        this.sfxPop.playbackRate = this.pitchValue();
         this.sfxPop.play();
       }
     }
@@ -435,6 +441,7 @@ export default class SmsSweeperForce extends LightningElement {
     if (!isFlagged && !isQuestioned) {
       this.flagged.push(id);
       if (this.useSfx) {
+        this.sfxThunk.playbackRate = this.pitchValue();
         this.sfxThunk.play();
       }
     }
@@ -528,6 +535,15 @@ export default class SmsSweeperForce extends LightningElement {
     }
     this.gridData = this.updateGridData();
     this.checkWinCondition();
+  }
+
+  /**
+   * Reduce audio fatigue by varying pitch.
+   * @returns {number}
+   */
+  pitchValue() {
+    const randomRange = Math.random() * (1 - 0.8) + 0.8;
+    return Math.round(randomRange * 100) / 100;
   }
 
   // --- Getters ---
