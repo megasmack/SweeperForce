@@ -47,3 +47,10 @@ $RECYCLE.BIN/
 # IntelliJ
 .idea
 IlluminatedCloud
+
+# Added by Illuminated Cloud
+/out/
+target/
+/.illuminatedCloud/
+**/tsconfig*.json
+**/*.tsbuildinfo
