@@ -8,6 +8,7 @@
 import { LightningElement } from "lwc";
 import SmsSweeperForceModal from "c/smsSweeperForceModal";
 import SmsAssets from "@salesforce/resourceUrl/smsSweeperForce";
+import { loadScript } from "lightning/platformResourceLoader";
 
 export default class SmsSweeperForce extends LightningElement {
   // --- Private Properties ---
@@ -40,6 +41,7 @@ export default class SmsSweeperForce extends LightningElement {
   exposed = [];
   flagged = [];
   questioned = [];
+  jsConfetti;
 
   /**
    * Immutable setup data.
@@ -58,10 +60,20 @@ export default class SmsSweeperForce extends LightningElement {
   renderedCallback() {
     if (!this.isRendered) {
       this.isRendered = true;
+
+      Promise.all([loadScript(this, `${SmsAssets}/js-confetti.browser.js`)])
+        .then(() => {
+          setTimeout(()=> {
+            this.jsConfetti = new JSConfetti();
+          },1000);
+        })
+        .catch((error) => console.error(error));
+
       const jsonString = localStorage.getItem("sms-sweeper-force-settings");
       if (jsonString) {
         this.applySettings(jsonString);
       }
+
       this.setUpGame();
       this.isInit = true;
     }
@@ -481,6 +493,7 @@ export default class SmsSweeperForce extends LightningElement {
         if (this.useSfx) {
           this.sfxWin.play();
         }
+        this.jsConfetti.addConfetti();
       } else {
         this.gameOver();
       }

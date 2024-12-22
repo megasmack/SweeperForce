@@ -1,5 +1,15 @@
 # SMS - SweeperForce Changelog
 
+## v1.0.4
+
+### Added
+
+- Add Confetti when winning the game (currently only working in Digital Experience sites).
+
+### Fixed
+
+ - Fixed Enable Sound FX setting not saving when turned off.
+
 ## v1.0.3
 
 ### Added
