@@ -76,7 +76,7 @@ export default class SmsSweeperForce extends LightningElement {
   applySettings(jsonString) {
     localStorage.setItem("sms-sweeper-force-settings", jsonString);
     const settings = JSON.parse(jsonString);
-    this.useSfx = settings?.soundFx || this.useSfx;
+    this.useSfx = settings?.soundFx != null ? settings.soundFx : this.useSfx;
     this.volume = settings?.volume || this.volume;
     if (this.useSfx) {
       this.enableAudio();
@@ -154,7 +154,9 @@ export default class SmsSweeperForce extends LightningElement {
     this.isGameInProgress = false;
     this.isGameOver = true;
     this.isWin = false;
-    this.sfxExplode.play();
+    if (this.useSfx) {
+      this.sfxExplode.play();
+    }
   }
 
   /**
