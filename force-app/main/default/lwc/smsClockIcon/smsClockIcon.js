@@ -1,3 +1,8 @@
+/**
+ * Created by Steve M Schrab
+ * https://github.com/megasmack/SweeperForce
+ */
+
 import { LightningElement, api } from "lwc";
 
 export default class SmsClockIcon extends LightningElement {

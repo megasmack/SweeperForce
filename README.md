@@ -15,10 +15,10 @@ https://steve-schrab-dev-ed.my.site.com/workbench/s/
 1.  Deploy the game’s static resources to your Org.
     - `force-app/main/default/staticresources/smsSweeperForce`
 1.  Deploy the game’s LWCs to your Org.
-    - `force-app/main/default/lwc/smsClockIcon`
     - `force-app/main/default/lwc/smsSweeperForce`
     - `force-app/main/default/lwc/smsSweeperForceMenuBar`
     - `force-app/main/default/lwc/smsSweeperForceModal`
+    - `force-app/main/default/lwc/smsClockIcon` (No longer required in v1.0.5)
 1.  SweeperForce can be dragged as a component into any Lightning App, Lightning Home Page, or Experience Cloud site.
 
 **Have fun!**

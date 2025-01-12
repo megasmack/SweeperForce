@@ -1,10 +1,19 @@
+/**
+ * Created by Steve M Schrab
+ * https://github.com/megasmack/SweeperForce
+ */
+
 import { LightningElement, api } from "lwc";
+import { loadScript } from "lightning/platformResourceLoader";
+import SmsAssets from "@salesforce/resourceUrl/smsSweeperForce";
 
 export default class SmsSweeperForceMenuBar extends LightningElement {
 
   // --- Private Properties
 
+  isRendered = false;
   isTimerRunning = false;
+  clock;
   startTime; // time of first click, if any
   elapsed = 0; // Elapsed time.
   pauseTime = 0;
@@ -20,6 +29,25 @@ export default class SmsSweeperForceMenuBar extends LightningElement {
   connectedCallback() {
     this.visibilityChangeEvent = this.visibilityChange.bind(this);
     document.addEventListener("visibilitychange", this.visibilityChangeEvent);
+  }
+
+  renderedCallback() {
+    if (!this.isRendered) {
+      this.isRendered = true;
+
+      Promise.all([
+        loadScript(this, `${SmsAssets}/sms-clock-icon.js`)
+      ])
+        .then(() => {
+          const clock = document.createElement('sms-clock-icon');
+          clock.style.setProperty("--sms-clock_line-width", "0.45rem");
+          clock.style.setProperty("--sms-clock_size", "1rem");
+          clock.style.setProperty("display", "block");
+          this.refs.clock.appendChild(clock);
+          this.clock = document.querySelector('sms-clock-icon');
+        })
+        .catch((error) => console.error(error));
+    }
   }
 
   disconnectedCallback() {
@@ -54,11 +82,18 @@ export default class SmsSweeperForceMenuBar extends LightningElement {
     }
   }
 
+  toggleClock() {
+    if (this.clock) {
+      this.clock.animate = this.isTimerRunning;
+    }
+  }
+
   // --- Public Methods ---
 
   @api
   setTimer() {
     this.isTimerRunning = false;
+    this.toggleClock();
     this.startTime = new Date();
     this.elapsed = 0;
     this.pauseTime = 0;
@@ -74,6 +109,7 @@ export default class SmsSweeperForceMenuBar extends LightningElement {
         this.startTime = new Date();
       }
       this.isTimerRunning = true;
+      this.toggleClock();
       this.timerAction();
       this.dispatchEvent(new CustomEvent("play"));
     }
@@ -82,6 +118,7 @@ export default class SmsSweeperForceMenuBar extends LightningElement {
   @api
   stopTimer() {
     this.isTimerRunning = false;
+    this.toggleClock();
   }
 
   // --- Event Handlers ---
