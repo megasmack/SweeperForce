@@ -6,10 +6,6 @@
 
 - Swapped the smsClockIcon LWC for sms-clock-icon.js Web Component.
 
-### Added
-
-- Add Confetti when winning the game (currently only working in Digital Experience sites).
-
 ## v1.0.4
 
 ### Added
